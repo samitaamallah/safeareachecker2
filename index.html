@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Safe Area Checker</title>
+  <script>try { document.documentElement.dataset.theme = localStorage.getItem('sac-theme') || 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <div class="brand-text">
+        <h1>Safe Area Checker</h1>
+        <p>Verify ad creatives against the safe area</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle dark / light mode">☀</button>
+  </header>
+
+  <div id="toolbar" class="toolbar" hidden>
+    <button id="home-btn" class="btn ghost" type="button"><span class="ic">←</span> Home</button>
+    <div id="verdict" class="bar-verdict">
+      <span id="verdict-main" class="bar-verdict-main"></span>
+      <span id="verdict-detail" class="bar-verdict-detail"></span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div id="format-control" class="format-control" hidden>
+      <span id="format-label" class="format-label">Format</span>
+      <select id="format-select">
+        <option value="welcome">Welcome Page — 1920×1080</option>
+        <option value="mobile">Mobile Takeover — 640×1000</option>
+      </select>
+    </div>
+
+    <label id="overlay-switch" class="switch" hidden>
+      <input id="overlay-toggle" type="checkbox" checked>
+      <span class="slider"></span>
+      <span class="switch-text">Safe area</span>
+    </label>
+  </div>
+
+  <input id="file-input" type="file" accept="image/png,image/jpeg,image/gif,.zip,application/zip" hidden>
+
+  <main id="artboard" class="artboard">
+    <aside id="gif-rail" class="gif-rail" hidden>
+      <div class="rail-head">
+        <span class="rail-title">Frames</span>
+        <button id="gif-play" class="gif-btn" type="button" aria-label="Play / pause">❚❚</button>
+      </div>
+      <div id="gif-thumbs" class="gif-thumbs"></div>
+    </aside>
+
+    <div id="stage-center" class="stage-center">
+      <div id="stage" class="stage"></div>
+    </div>
+
+    <div id="empty" class="empty">
+      <div id="empty-drop" class="empty-drop">
+        <div class="empty-icon">⤓</div>
+        <p class="empty-title">Drop a creative anywhere here</p>
+        <p class="empty-sub">PNG · JPG · GIF · ZIP</p>
+        <div class="empty-actions">
+          <button id="empty-choose" class="btn primary lg" type="button"><span class="ic">↑</span> Choose file</button>
+          <button id="empty-tag-btn" class="btn lg" type="button"><span class="ic">&lt;/&gt;</span> Paste a tag</button>
+        </div>
+        <div class="empty-formats">
+          <span>Welcome Page · 1920×1080</span>
+          <span>Mobile Takeover · 640×1000</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="tag-modal" class="tag-modal" hidden>
+      <div class="tag-card">
+        <h2 class="tag-card-title">Paste a third-party tag</h2>
+        <textarea id="tag-input" class="tag-textarea" spellcheck="false"
+          placeholder="Paste a third-party tag, e.g.&#10;&lt;script src=&quot;https://...&quot; async&gt;&lt;/script&gt;"></textarea>
+        <div class="tag-card-row">
+          <label class="tag-fmt">Format
+            <select id="tag-format">
+              <option value="welcome">Welcome Page — 1920×1080</option>
+              <option value="mobile">Mobile Takeover — 640×1000</option>
+            </select>
+          </label>
+          <div class="spacer"></div>
+          <button id="tag-cancel" class="btn ghost" type="button">Cancel</button>
+          <button id="tag-render" class="btn primary" type="button">Render</button>
+        </div>
+        <p class="tag-note">Loads live from the vendor — needs internet, and the tag must be HTTPS.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="vendor/jszip.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
